@@ -99,10 +99,8 @@ class _FoundState extends State<Found> {
       });
       if (response.statusCode == 200) {
         if (codeController.text.isNotEmpty) {
-          String mainString = response.body;
-          int pos = mainString.indexOf("nakli");
-          int post = mainString.indexOf("asli");
           if (response.body.contains('nakli')) {
+            print("Code Respinse");
             showDialog<void>(
               context: context,
               barrierDismissible: false, // user must tap button!
@@ -144,59 +142,47 @@ class _FoundState extends State<Found> {
             );
           } else if (response.body.contains('asli') ||
               response.body.contains("Asli")) {
+            print("Code Respinse");
             print("asli");
-            // showDialog<void>(
-            //     context: context,
-            //     barrierDismissible: false,
-            //     builder: (BuildContext context) {
-            //       return AlertDialog(
-            //         title: const Text("Success"),
-            //         content: SingleChildScrollView(
-            //           child: ListBody(
-            //             children: [
-            //               Image.asset(
-            //                 "assets/check.png",
-            //                 height: 200,
-            //               ),
-            //               SizedBox(
-            //                 height: 10,
-            //               ),
-            //               Container(
-            //                 margin: EdgeInsets.only(left: 20, right: 20),
-            //                 child: Text(
-            //                   response.body,
-            //                   textAlign: TextAlign.center,
-            //                 ),
-            //               ),
-            //             ],
-            //           ),
-            //         ),
-            //         actions: <Widget>[
-            //           TextButton(
-            //               onPressed: () {
-            //                 Navigator.push(
-            //                     context,
-            //                     MaterialPageRoute(
-            //                         builder: (builder) => NoFound(
-            //                               response: response.body,
-            //                               phoneController: "00000",
-            //                             )));
-            //               },
-            //               child: Text("OK"))
-            //         ],
-            //       );
-            //     });
             showDialog<void>(
                 context: context,
-                barrierDismissible: false, // user must tap button!
+                barrierDismissible: false,
                 builder: (BuildContext context) {
                   return AlertDialog(
                     title: const Text("Success"),
                     content: SingleChildScrollView(
                       child: ListBody(
-                        children: <Widget>[],
+                        children: [
+                          Image.asset(
+                            "assets/check.png",
+                            height: 200,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left: 20, right: 20),
+                            child: Text(
+                              response.body,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    actions: <Widget>[
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (builder) => NoFound(
+                                          response: response.body,
+                                          phoneController: "00000",
+                                        )));
+                          },
+                          child: Text("OK"))
+                    ],
                   );
                 });
           }
