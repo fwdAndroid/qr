@@ -57,19 +57,6 @@ class _NoFoundState extends State<NoFound> {
             ),
           ),
           SizedBox(
-            height: 10,
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 30, left: 10, right: 10),
-            child: Center(
-              child: Text(
-                "EcoWebPortals.com",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-          SizedBox(
             height: 40,
           ),
           Center(

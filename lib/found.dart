@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:qr/mainScreen.dart';
 import 'package:qr/nofound.dart';
 import 'package:http/http.dart' as http;
 
@@ -48,24 +49,22 @@ class _FoundState extends State<Found> {
           SizedBox(
             height: 20,
           ),
-          Container(
-              margin: EdgeInsets.only(top: 5, left: 20, right: 20),
-              child: Text(
-                "Enter Phone Number",
-                textAlign: TextAlign.start,
-              )),
-          Container(
-            margin: EdgeInsets.only(top: 5, left: 20, right: 20),
-            child: TextField(
-              decoration: InputDecoration(hintText: "0000"),
-              controller: phoneController,
-              keyboardType: TextInputType.number,
-              obscureText: false,
-            ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
+          // Container(
+          //     margin: EdgeInsets.only(top: 5, left: 20, right: 20),
+          //     child: Text(
+          //       "Enter Phone Number",
+          //       textAlign: TextAlign.start,
+          //     )),
+          // Container(
+          //   margin: EdgeInsets.only(top: 5, left: 20, right: 20),
+          //   child: TextField(
+          //     decoration: InputDecoration(hintText: "0000"),
+          //     controller: phoneController,
+          //     keyboardType: TextInputType.number,
+          //     obscureText: false,
+          //   ),
+          // ),
+
           Center(
             child: _isLoading
                 ? CircularProgressIndicator()
@@ -89,7 +88,7 @@ class _FoundState extends State<Found> {
       _isLoading = true;
     });
 
-    if (phoneController.text.isEmpty) {
+    if (codeController.text.isNotEmpty) {
       final url = Uri.parse(
           'https://www.ecofbc.com/index.php/fbc/whatsapp_authenticate_scratch_code/${00000}/${codeController.text}/forvil');
 
@@ -186,13 +185,14 @@ class _FoundState extends State<Found> {
                   );
                 });
           }
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("No Code Found: Code is Required")));
         }
       } else {
         print('Request failed with status: ${response.statusCode}.');
       }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("No Code Found: Code is Required")));
+      Navigator.pop(context);
     }
   }
 }
